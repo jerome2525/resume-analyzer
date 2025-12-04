@@ -1,16 +1,12 @@
-// Next.js Middleware for JWT Authentication
+// Next.js Middleware
 
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 /**
- * Middleware to protect API routes with JWT authentication
+ * Middleware to add security headers to all responses
  */
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-
-  // No authentication required - public API for demo/testing
-
   // Add security headers to all responses
   const response = NextResponse.next()
   response.headers.set('X-DNS-Prefetch-Control', 'on')

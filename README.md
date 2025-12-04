@@ -243,20 +243,24 @@ Common utilities and configuration.
 
 ## 🔧 Configuration
 
-### OpenAI API Key
+### Environment Variables
 
-> **Note**: For testing convenience, the OpenAI API key is intentionally configured inline in the codebase (`src/config/index.ts`). In a production environment, this should be moved to environment variables for security.
+The API uses environment variables for configuration. Create a `.env.local` file in the root directory:
 
-To use your own API key, simply update the value in `src/config/index.ts`:
+```env
+# OpenAI Configuration
+OPENAI_API_KEY=your-openai-api-key-here
 
-```typescript
-// src/config/index.ts
-export const config = {
-  openai: {
-    apiKey: 'your-openai-api-key-here' // Update this value
-  }
-}
+# JWT Configuration (optional - for future auth features)
+JWT_SECRET=your-super-secret-jwt-key-min-32-chars-long
+JWT_EXPIRES_IN=1h
+
+# Application
+NODE_ENV=development
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
+
+> **Note**: For testing convenience during development, you can find a pre-configured `.env.local` file in the project. For production deployment, always use proper environment variable management.
 
 ### Application Settings
 
