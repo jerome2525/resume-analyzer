@@ -1,6 +1,6 @@
 # Quick Start Guide - PDF CV Parser API
 
-## 🚀 Get Started in 3 Minutes
+## 🚀 Get Started in 5 Minutes
 
 ### Step 1: Install Dependencies
 
@@ -8,7 +8,17 @@
 npm install
 ```
 
-### Step 2: Start the Server
+### Step 2: Configure Environment Variables
+
+Create a `.env.local` file in the root directory with your OpenAI API key:
+
+```env
+OPENAI_API_KEY=your-openai-api-key-here
+```
+
+> **Note**: You can copy `.env.example` as a starting point: `cp .env.example .env.local`
+
+### Step 3: Start the Server
 
 ```bash
 npm run dev
@@ -16,7 +26,7 @@ npm run dev
 
 The server will start at **http://localhost:3000**
 
-### Step 3: Test the API
+### Step 4: Test the API
 
 Open your browser and go to:
 **http://localhost:3000/api-docs**
