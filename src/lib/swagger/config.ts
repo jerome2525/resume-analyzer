@@ -6,9 +6,9 @@ export const swaggerOptions: OAS3Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'PDF CV Parser API',
+      title: 'Resume Analyzer API',
       version: '1.0.0',
-      description: 'API for parsing PDF CVs and extracting structured information using AI',
+      description: 'Evaluate plain text resume against a job description or role + keywords. Returns ranked keywords, matched/missing, confidence notes, and a deterministic score.',
     },
     servers: [
       {
@@ -49,26 +49,36 @@ export const swaggerOptions: OAS3Options = {
             },
           },
         },
-        ParsedCV: {
+        ResumeAnalysis: {
           type: 'object',
           properties: {
-            summary: {
-              type: 'string',
-              description: 'Professional summary of the candidate',
-              example: 'Experienced software engineer with 5 years in full-stack development',
-            },
-            skills: {
+            topKeywords: {
               type: 'array',
-              items: {
-                type: 'string',
-              },
-              description: 'List of technical and professional skills',
-              example: ['JavaScript', 'React', 'Node.js', 'Python', 'AWS'],
+              items: { type: 'string' },
+              description: 'Top extracted keywords from resume (ranked)',
             },
-            experience_years: {
+            matchedKeywords: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Keywords that appear in both resume and target',
+            },
+            missingKeywords: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Target keywords not found in resume',
+            },
+            confidenceNotes: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Human-readable confidence notes',
+            },
+            overallScore: {
               type: 'number',
-              description: 'Total years of professional experience',
-              example: 5,
+              description: 'Deterministic score (0-100)',
+            },
+            readableSummary: {
+              type: 'string',
+              description: 'Actionable human-readable summary',
             },
           },
         },

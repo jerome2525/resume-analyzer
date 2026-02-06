@@ -9,9 +9,6 @@ const nextConfig: NextConfig = {
     },
   },
   webpack: (config) => {
-    // Handle canvas dependency for pdf-parse
-    config.resolve.alias.canvas = false
-    
     // Suppress warnings from third-party libraries
     config.ignoreWarnings = [
       { module: /node_modules\/swagger-ui-react/ },

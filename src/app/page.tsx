@@ -4,9 +4,9 @@ export default function HomePage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-2xl mx-auto p-8 text-center">
-        <h1 className="text-4xl font-bold mb-4">PDF CV Parser API</h1>
+        <h1 className="text-4xl font-bold mb-4">Resume Analyzer API</h1>
         <p className="text-gray-600 mb-8">
-          Upload a PDF CV and get structured data extracted by AI
+          Evaluate a plain text resume against a job description or role + keywords
         </p>
         <div className="space-y-4">
           <Link

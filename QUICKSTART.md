@@ -1,4 +1,4 @@
-# Quick Start Guide - PDF CV Parser API
+# Quick Start Guide - Resume Analyzer API
 
 ## 🚀 Get Started in 5 Minutes
 
@@ -8,15 +8,9 @@
 npm install
 ```
 
-### Step 2: Configure Environment Variables
+### Step 2: Configure Environment Variables (optional)
 
-Create a `.env.local` file in the root directory with your OpenAI API key:
-
-```env
-OPENAI_API_KEY=your-openai-api-key-here
-```
-
-> **Note**: You can copy `.env.example` as a starting point: `cp .env.example .env.local`
+No API keys required. Create a `.env.local` only if you need JWT or custom app URL (see README).
 
 ### Step 3: Start the Server
 
@@ -35,32 +29,24 @@ You'll see the Swagger UI with interactive API documentation!
 
 ---
 
-## 🎯 Parse Your First CV
+## 🎯 Analyze Your First Resume
 
 ### Using Swagger UI (Easiest Method)
 
 1. Navigate to http://localhost:3000/api-docs
-2. Find the **`POST /api/cv/parse`** endpoint
+2. Find **`POST /api/resume/analyze`**
 3. Click **"Try it out"**
-4. Click **"Choose File"** and select a PDF CV
+4. In the Request body, paste JSON with `resumeText` and `jobDescription` (or `role` + `keywords`)
 5. Click **"Execute"**
-6. 🎉 See the parsed results!
+6. See ranked keywords, matched/missing, score, and summary!
 
 ### Using cURL
 
 ```bash
-curl -X POST 'http://localhost:3000/api/cv/parse' \
-  -F 'file=@path/to/your-cv.pdf'
+curl -X POST 'http://localhost:3000/api/resume/analyze' \
+  -H 'Content-Type: application/json' \
+  -d '{"resumeText":"Your resume text...","jobDescription":"Job description..."}'
 ```
-
-### Using Postman
-
-1. Create a new POST request
-2. URL: `http://localhost:3000/api/cv/parse`
-3. Body: `form-data`
-4. Key: `file` (type: File)
-5. Value: Select your PDF CV
-6. Send!
 
 ---
 
@@ -70,48 +56,24 @@ curl -X POST 'http://localhost:3000/api/cv/parse' \
 {
   "success": true,
   "data": {
-    "summary": "Experienced software engineer with 7 years of expertise in developing web applications...",
-    "skills": [
-      "Python", 
-      "JavaScript", 
-      "React", 
-      "Node.js", 
-      "PostgreSQL", 
-      "AWS", 
-      "Docker"
-    ],
-    "experience_years": 7
+    "topKeywords": ["Node.js", "React", "TypeScript"],
+    "matchedKeywords": ["Node.js", "React"],
+    "missingKeywords": ["SQL"],
+    "confidenceNotes": ["Matched 2 of 3 target keywords."],
+    "overallScore": 67,
+    "readableSummary": "Score = (matched keywords 2 / target keywords 3) × 100 = 67. ..."
   },
-  "message": "CV parsed successfully"
+  "message": "Analysis complete"
 }
-```
-
----
-
-## 📁 Project Structure
-
-```
-pdf-scanner/
-├── src/
-│   ├── app/              # Next.js routes
-│   │   ├── api/cv/parse/ # CV parser endpoint
-│   │   └── api-docs/     # Swagger UI
-│   ├── core/             # Business logic
-│   ├── infrastructure/   # External services (OpenAI, PDF)
-│   └── lib/              # Utilities
-├── package.json
-└── README.md            # Full documentation
 ```
 
 ---
 
 ## 🎯 Key Features
 
-- ✅ **No Authentication Required** - Public API for testing
-- ✅ **PDF Upload** - Max 10MB
-- ✅ **AI Parsing** - OpenAI GPT-4
-- ✅ **Structured Output** - JSON format
-- ✅ **Swagger Docs** - Interactive testing
+- ✅ **No API keys** - No OpenAI or external APIs
+- ✅ **Deterministic scoring** - Allowlist-based keyword extraction
+- ✅ **Swagger docs** - Interactive testing at /api-docs
 
 ---
 
@@ -122,11 +84,6 @@ pdf-scanner/
 PORT=3001 npm run dev
 ```
 
-### PDF Not Parsing
-- Make sure PDF contains actual text (not scanned images)
-- File must be under 10MB
-- File must be a valid PDF
-
 ---
 
 ## 🛠️ Available Scripts
@@ -135,7 +92,8 @@ PORT=3001 npm run dev
 npm run dev        # Start development server
 npm run build      # Build for production
 npm start          # Start production server
-npm run lint       # Run linter
+npm run test       # Run unit tests
+npm run lint      # Run linter
 npm run type-check # Check TypeScript types
 ```
 
@@ -145,17 +103,10 @@ npm run type-check # Check TypeScript types
 
 - Read the full [README.md](README.md) for detailed documentation
 - Check [TESTING.md](TESTING.md) for testing guidelines
-- Explore the code following clean architecture principles
-- Customize the OpenAI prompt in `src/infrastructure/ai/openai.service.ts`
 
 ---
 
 ## 🎉 You're All Set!
 
-Your PDF CV Parser API is ready to use!
-
 - **Swagger UI**: http://localhost:3000/api-docs
-- **Home Page**: http://localhost:3000
-- **API Endpoint**: http://localhost:3000/api/cv/parse
-
-**Happy parsing! 🚀**
+- **API Endpoint**: http://localhost:3000/api/resume/analyze

@@ -18,33 +18,9 @@ export class ValidationError extends AppError {
   }
 }
 
-export class AuthenticationError extends AppError {
-  constructor(message: string = 'Unauthorized') {
-    super(message, 401)
-  }
-}
-
-export class AuthorizationError extends AppError {
-  constructor(message: string = 'Forbidden') {
-    super(message, 403)
-  }
-}
-
 export class NotFoundError extends AppError {
   constructor(message: string = 'Resource not found') {
     super(message, 404)
-  }
-}
-
-export class PDFParsingError extends AppError {
-  constructor(message: string = 'Failed to parse PDF file') {
-    super(message, 400)
-  }
-}
-
-export class AIServiceError extends AppError {
-  constructor(message: string = 'AI service error') {
-    super(message, 500)
   }
 }
 
