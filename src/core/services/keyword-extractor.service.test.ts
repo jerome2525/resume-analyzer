@@ -46,4 +46,25 @@ describe('keyword-extractor', () => {
     expect(result).not.toContain('SuperDuperFramework')
     expect(result).not.toContain('XYZ')
   })
+
+  it('normalizes variants in resume text: nodejs, c++, .net to Node.js, C++, .NET', () => {
+    const text = 'I use nodejs, c++, and .net. Also next.js and react.'
+    const result = extractFromText(text)
+    expect(result).toContain('Node.js')
+    expect(result).toContain('C++')
+    expect(result).toContain('.NET')
+    expect(result).toContain('Next.js')
+    expect(result).toContain('React')
+    expect(result).toHaveLength(5)
+  })
+
+  it('normalizes synonym variants in resume: postgres, js to PostgreSQL, JavaScript', () => {
+    const text = 'Used postgres, js, and docker. Some redis.'
+    const result = extractFromText(text)
+    expect(result).toContain('PostgreSQL')
+    expect(result).toContain('JavaScript')
+    expect(result).toContain('Docker')
+    expect(result).toContain('Redis')
+    expect(result).toHaveLength(4)
+  })
 })
